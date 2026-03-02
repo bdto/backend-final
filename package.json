@@ -1,0 +1,19 @@
+{
+  "name": "backend-final",
+  "private": true,
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "install:frontend": "cd frontend && npm install"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.1.4",
+    "axios": "^1.13.6",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.575.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.1",
+    "vite": "^7.3.1"
+  }
+}
