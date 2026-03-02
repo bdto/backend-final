@@ -13,7 +13,8 @@ export function useAsync(asyncFn, immediate = true) {
       setData(result)
       return result
     } catch (err) {
-      const message = err.response?.data?.message || err.message || 'Error inesperado'
+      const data = err.response?.data
+      const message = data?.detail || data?.message || err.message || 'Error inesperado'
       setError(message)
       throw err
     } finally {

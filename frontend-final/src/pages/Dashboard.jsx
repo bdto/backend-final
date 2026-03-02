@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Navbar from '../layout/Navbar'
 import { productService } from '../services/productService'
 import { LoadingSpinner, ErrorMessage } from '../components/UI'
-import { formatCurrency } from '../utils/helpers'
+import { formatCurrency, getApiError } from '../utils/helpers'
 import {
   Package,
   ShoppingCart,
@@ -31,7 +31,7 @@ export default function Dashboard() {
         setProducts(prods)
         setCategories(cats)
       } catch (err) {
-        setError(err.response?.data?.message || 'Error al cargar datos')
+        setError(getApiError(err, 'Error al cargar datos'))
       } finally {
         setLoading(false)
       }

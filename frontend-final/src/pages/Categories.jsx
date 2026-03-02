@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Navbar from '../layout/Navbar'
 import { productService } from '../services/productService'
 import { LoadingSpinner, ErrorMessage, EmptyState } from '../components/UI'
+import { getApiError } from '../utils/helpers'
 import { FolderTree, Package } from 'lucide-react'
 
 export default function Categories() {
@@ -26,7 +27,7 @@ export default function Categories() {
       setCategories(cats)
       setProducts(prods)
     } catch (err) {
-      setError(err.response?.data?.message || 'Error al cargar categorias')
+      setError(getApiError(err, 'Error al cargar categorias'))
     } finally {
       setLoading(false)
     }

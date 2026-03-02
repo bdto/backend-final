@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Navbar from '../layout/Navbar'
 import { productService } from '../services/productService'
 import { LoadingSpinner, ErrorMessage, EmptyState, Badge } from '../components/UI'
-import { formatCurrency } from '../utils/helpers'
+import { formatCurrency, getApiError } from '../utils/helpers'
 import { useAuth } from '../context/AuthContext'
 import {
   Package,
@@ -38,7 +38,7 @@ export default function Products() {
       setProducts(prods)
       setCategories(cats)
     } catch (err) {
-      setError(err.response?.data?.message || 'Error al cargar productos')
+      setError(getApiError(err, 'Error al cargar productos'))
     } finally {
       setLoading(false)
     }
@@ -54,7 +54,7 @@ export default function Products() {
       const results = await productService.search(searchTerm)
       setProducts(results)
     } catch (err) {
-      setError(err.response?.data?.message || 'Error en la busqueda')
+      setError(getApiError(err, 'Error en la busqueda'))
     } finally {
       setLoading(false)
     }
@@ -71,7 +71,7 @@ export default function Products() {
       const results = await productService.getByCategory(catId)
       setProducts(results)
     } catch (err) {
-      setError(err.response?.data?.message || 'Error al filtrar')
+      setError(getApiError(err, 'Error al filtrar'))
     } finally {
       setLoading(false)
     }
@@ -248,7 +248,7 @@ function ProductForm({ categories, onSuccess, onCancel }) {
       })
       onSuccess()
     } catch (err) {
-      setError(err.response?.data?.message || 'Error al crear producto')
+      setError(getApiError(err, 'Error al crear producto'))
     } finally {
       setSubmitting(false)
     }

@@ -33,6 +33,12 @@ export function getStatusColor(status) {
   return colors[status] || 'bg-gray-50 text-gray-700 border-gray-200'
 }
 
+// Extrae el mensaje de error del backend (ProblemDetail RFC 7807)
+export function getApiError(err, fallback = 'Error inesperado') {
+  const data = err.response?.data
+  return data?.detail || data?.message || err.message || fallback
+}
+
 export function getInitials(name) {
   return name
     ?.split(' ')

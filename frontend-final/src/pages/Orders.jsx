@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Navbar from '../layout/Navbar'
 import { orderService } from '../services/orderService'
 import { LoadingSpinner, ErrorMessage, EmptyState, Badge } from '../components/UI'
-import { formatCurrency, formatDate, getStatusColor } from '../utils/helpers'
+import { formatCurrency, formatDate, getStatusColor, getApiError } from '../utils/helpers'
 import { useAuth } from '../context/AuthContext'
 import {
   ShoppingCart,
@@ -54,7 +54,7 @@ export default function Orders() {
       const data = await orderService.getByUser(searchUserId)
       setOrders(data)
     } catch (err) {
-      setError(err.response?.data?.message || 'Error al buscar pedidos')
+      setError(getApiError(err, 'Error al buscar pedidos'))
     } finally {
       setLoading(false)
     }
@@ -70,7 +70,7 @@ export default function Orders() {
         fetchOrders()
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Error al confirmar pedido')
+      setError(getApiError(err, 'Error al confirmar pedido'))
     }
   }
 
@@ -291,7 +291,7 @@ function OrderForm({ onSuccess, onCancel }) {
       })
       onSuccess()
     } catch (err) {
-      setError(err.response?.data?.message || 'Error al crear pedido')
+      setError(getApiError(err, 'Error al crear pedido'))
     } finally {
       setSubmitting(false)
     }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { getApiError } from '../utils/helpers'
 import { Loader2, Eye, EyeOff, LogIn } from 'lucide-react'
 
 export default function Login() {
@@ -20,7 +21,7 @@ export default function Login() {
       await login(username, password)
       navigate('/')
     } catch (err) {
-      setError(err.response?.data?.message || 'Credenciales invalidas')
+      setError(getApiError(err, 'Credenciales invalidas'))
     } finally {
       setLoading(false)
     }

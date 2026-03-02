@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import Navbar from '../layout/Navbar'
 import { productService } from '../services/productService'
 import { LoadingSpinner, ErrorMessage, Badge } from '../components/UI'
-import { formatCurrency } from '../utils/helpers'
+import { formatCurrency, getApiError } from '../utils/helpers'
 import { ArrowLeft, Box, Tag, Layers, Hash } from 'lucide-react'
 
 export default function ProductDetail() {
@@ -24,7 +24,7 @@ export default function ProductDetail() {
         setProduct(prod)
         setCategories(cats)
       } catch (err) {
-        setError(err.response?.data?.message || 'Error al cargar producto')
+        setError(getApiError(err, 'Error al cargar producto'))
       } finally {
         setLoading(false)
       }
